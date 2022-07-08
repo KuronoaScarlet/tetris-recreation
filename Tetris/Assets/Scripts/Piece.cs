@@ -45,23 +45,23 @@ public class Piece : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Q))
         {
-            Rotate(-1);
+            Rotate(1);
         }
         else if(Input.GetKeyDown(KeyCode.E))
         {
-            Rotate(1);
+            Rotate(-1);
         }
 
         if(Input.GetKeyDown(KeyCode.A))
         {
-            Move(Vector2Int.left);
+            Move(Vector2Int.right);
         }
         else if(Input.GetKeyDown(KeyCode.D))
         {
-            Move(Vector2Int.right);
+            Move(Vector2Int.left);
         }
 
-        if(Input.GetKeyDown(KeyCode.S))
+        if(Input.GetKeyDown(KeyCode.W))
         {
             Move(Vector2Int.down);
         }
@@ -99,6 +99,7 @@ public class Piece : MonoBehaviour
     private void Lock()
     {
         this.board.Set(this);
+        this.board.ClearLines();
         this.board.SpawnPiece();
     }
 
