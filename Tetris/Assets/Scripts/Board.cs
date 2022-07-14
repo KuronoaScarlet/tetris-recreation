@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using TMPro;
 
 public class Board : MonoBehaviour
 {
@@ -8,6 +9,11 @@ public class Board : MonoBehaviour
     public TetrominoData[] tetrominoes;
     public Vector3Int spawnPos;
     public Vector2Int boardSize = new Vector2Int(10, 20);
+
+    public TMP_Text points;
+    public TMP_Text level;
+
+    private int pieceCount = 0;
 
     public RectInt Bounds
     { 
@@ -36,10 +42,20 @@ public class Board : MonoBehaviour
 
     public void SpawnPiece()
     {
+        pieceCount++;
+        
         int random = Random.Range(0, this.tetrominoes.Length);
         TetrominoData data = this.tetrominoes[random];
 
         this.activePiece.Initialize(this, this.spawnPos, data);
+
+        if(pieceCount == 10)
+        {
+            pieceCount = 0;
+            level.text = (int.Parse(level.text) + 1).ToString();
+            this.activePiece.stepDelay -= 0.1f * this.activePiece.stepDelay;
+            this.activePiece.lockDelay -= 0.05f * this.activePiece.stepDelay;
+        }
 
         if(InBounds(this.activePiece, this.spawnPos))
         {
@@ -53,6 +69,10 @@ public class Board : MonoBehaviour
 
     private void GameOver()
     {
+        points.text = "0";
+        level.text = "1";
+        this.activePiece.stepDelay = 1f;
+        this.activePiece.lockDelay = 0.5f;
         this.tilemap.ClearAllTiles();
     }
 
@@ -149,6 +169,10 @@ public class Board : MonoBehaviour
 
             row++;
         }
+
+        int currentPoints = int.Parse(points.text);
+        int newPoints = currentPoints + (1000 * int.Parse(level.text));
+        points.text = newPoints.ToString();
     }
 }
 

@@ -677,7 +677,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0
+  m_text: 1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
   m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
@@ -1626,6 +1626,8 @@ MonoBehaviour:
     tile: {fileID: 11400000, guid: e2b3b96b44c5a3a4f9ab84172473ce91, type: 2}
   spawnPos: {x: -1, y: 8, z: 0}
   boardSize: {x: 10, y: 20}
+  points: {fileID: 1297170493}
+  level: {fileID: 1139133725}
 --- !u!114 &1929820706
 MonoBehaviour:
   m_ObjectHideFlags: 0
