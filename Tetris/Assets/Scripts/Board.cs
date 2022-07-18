@@ -12,8 +12,11 @@ public class Board : MonoBehaviour
 
     public TMP_Text points;
     public TMP_Text level;
+    public GameObject gameOverText;
+    public GameObject gameOverScreen;
 
     private int pieceCount = 0;
+    public bool gameOver = false;
 
     public RectInt Bounds
     { 
@@ -40,6 +43,14 @@ public class Board : MonoBehaviour
         SpawnPiece();
     }
 
+    private void Update()
+    {
+        if(gameOver)
+        {
+            GameOver();
+        }
+    }
+
     public void SpawnPiece()
     {
         pieceCount++;
@@ -63,17 +74,28 @@ public class Board : MonoBehaviour
         }
         else
         {
-            GameOver();
-        }
+            gameOver = true;
+        } 
     }
 
     private void GameOver()
     {
-        points.text = "0";
-        level.text = "1";
-        this.activePiece.stepDelay = 1f;
-        this.activePiece.lockDelay = 0.5f;
-        this.tilemap.ClearAllTiles();
+        if(!gameOverText.active && !gameOverScreen.active)
+        {
+            gameOverText.SetActive(true);
+            gameOverScreen.SetActive(true);
+        }
+        if(Input.GetKeyDown(KeyCode.Return))
+        {
+            points.text = "0";
+            level.text = "1";
+            this.activePiece.stepDelay = 1f;
+            this.activePiece.lockDelay = 0.5f;
+            gameOverText.SetActive(false);
+            gameOverScreen.SetActive(false);
+            gameOver = false;
+            this.tilemap.ClearAllTiles();
+        }
     }
 
     public void Set(Piece piece)
